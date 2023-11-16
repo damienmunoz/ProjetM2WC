@@ -1,4 +1,4 @@
-window.onload = init;
+/*window.onload = init;
 
 function init() {
     console.log('page chargée');
@@ -15,4 +15,4 @@ function init() {
         //console.log('code changé');
     });
 
-}
+}*/

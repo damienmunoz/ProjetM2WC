@@ -1,23 +1,18 @@
 <html>
-<head>
-    <title>Exemple 1 Web Component</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <meta charset="UTF-8">
-    <!-- ici on importera les web components -->
-    <script src="components/myComponent.js" type="module"></script>
-    <script src ="components/audioPlayer.js" type="module"></script>
-    <script src="js/script.js"></script>
+    <head>
+        <title>Projet M2 WC</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
+        <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+        <script src ="./components/audioPlayer.js" type="module"></script>
+        <script src="js/script.js"></script>
     </head> 
     <body>
-    <h1>Exemple 1 Web Component</h1>
-    <my-component id="clavier1" correctcode="2233"></my-component>
-    <button id="changeCodebtn">Change code</button>
-
-    <my-component></my-component>
-    <h1>Exemple 2 Web Component</h1>
-    <my-component id="clavier1" correctcode="2233"></my-component>
-    <button id="changeCodebtn">Change code</button>
-
-    <my-component></my-component>
+        <h3 style="text-align:center">Custom UI for HTML5 audio element</h3>
+        <audio-player
+            tracks='["Chameleon", "Dumaya"]'
+            paths='["./assets/Chameleon.mp3", "./assets/Dumaya.mp3"]'>
+        </audio-player>
     </body>
 </html>
