@@ -1,23 +1,72 @@
 <html>
-<head>
-    <title>Exemple 1 Web Component</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <meta charset="UTF-8">
-    <!-- ici on importera les web components -->
-    <script src="components/myComponent.js" type="module"></script>
-    <script src ="components/audioPlayer.js" type="module"></script>
-    <script src="js/script.js"></script>
+    <head>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <meta charset="UTF-8">
+        <!-- ici on importera les web components -->
+        <script src="components/myComponent.js" type="module"></script>
+        <script src="js/script.js"></script>
     </head> 
     <body>
-    <h1>Exemple 1 Web Component</h1>
-    <my-component id="clavier1" correctcode="2233"></my-component>
-    <button id="changeCodebtn">Change code</button>
-
-    <my-component></my-component>
-    <h1>Exemple 2 Web Component</h1>
-    <my-component id="clavier1" correctcode="2233"></my-component>
-    <button id="changeCodebtn">Change code</button>
-
-    <my-component></my-component>
+        <nav class="navigation">
+            <a href="#" class="logo ripple">MIAGE<span class="small-text">Audio Player</span></a>
+            <ul>
+                <li class="ripple">
+                    <i class="icon fas fa-music"></i> <span>Player</span>
+                </li>
+                <li class="ripple active">
+                    <i class="icon fas fa-stream"></i> <span>Playlist</span>
+                </li>
+            </ul>
+            <i class="closeButton fas fa-arrow-alt-circle-left"></i>
+        </nav>
+        
+        <div class="pagination">
+            <div class="music-title">
+                <div class="image">
+                    <img src="assets/image/pochette_album.png" alt="" />
+                </div>
+                <div class="title">
+                    <h2>
+                        <span></span>
+                    </h2>
+                    <span>Artiste inconnu</span>
+                </div>
+            </div>
+            <div class="controls">
+                <div class="progress-container">
+                    <input type="range" class="progress" min="0" max="100" value="0" />
+                    <div class="value-of-range">
+                        <div class="value">0</div>
+                    </div>
+                </div>
+                <div class="main-controls">
+                    <i class="ripple control-button prev fas fa-step-backward"></i>
+                    <i class="ripple control-button play fas fa-play"></i>
+                    <i class="ripple control-button next fas fa-step-forward"></i>
+                </div>
+            </div>
+        </div>
+        
+        <div class="music-list on">
+            <h1>Playlist</h1>
+            <ul>
+                <li>
+                    <a href="#" class="ripple"><span>Titre</span><span>Durée</span><span>Taille</span></a>
+                </li>
+            </ul>
+        </div>
+        <div class="AV-player">
+            <canvas></canvas>
+            <div class="more-controls">
+                <i class="ripple shuffle fas fa-random"></i>
+                <i class="ripple repeat fas fa-retweet"></i>
+                <i class="ripple volume fas fa-volume-up">
+                    <div class="value-of-range"></div>
+                    <input type="range" min="0" max="100" value="100" class="volume-range" />
+                </i>
+                <i class="ripple list-music fas fa-list-ul"></i>
+            </div>
+        </div>
+        <audio src=""></audio>
     </body>
 </html>
