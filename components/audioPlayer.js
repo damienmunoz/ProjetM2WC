@@ -40,6 +40,7 @@ class AudioPlayer extends HTMLElement {
         this.attachShadow({ mode: 'open' });
         this.shadowRoot.appendChild(template.content.cloneNode(true));
         this.audioElement = this.shadowRoot.querySelector('audio');
+        this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
         this.isPlaying = false;
 
         // SELECTING ELEMENTS.
@@ -69,8 +70,13 @@ class AudioPlayer extends HTMLElement {
             }
             
             this.audioElement.src = `/assets/music/${event.detail.musicTitle}`;
-            this.audioElement.play();
+            this.audioContext.resume().then(() => {
+                this.audioElement.play();
+                // Vous pouvez ajouter d'autres fonctionnalités ici, comme l'égalisation, etc.
+            });
+            // this.audioElement.play();
             this.progress.max = this.audioElement.duration;
+            
             this.checkPaused();
         });
 
