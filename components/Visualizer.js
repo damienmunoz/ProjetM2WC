@@ -22,10 +22,29 @@ class Visualizer extends HTMLElement {
         super()
         this.attachShadow({ mode: 'open' });
         this.shadowRoot.appendChild(template.content.cloneNode(true));
+
+        this.AV_player = this.shadowRoot.querySelector(".AV-player");
     }
 
     connectedCallback() {
-        
+        // Ouvrir/Fermer menu
+        document.addEventListener('closeButtonClicked', () => {
+            if (this.AV_player.classList.contains("active")) {
+                this.AV_player.classList.remove("active");
+            } else {
+                this.AV_player.classList.add("active");
+            }
+        });
+
+        // Menu Player selectionne
+        document.addEventListener('menuPlayer', () => {
+            this.AV_player.classList.add("on");
+        });
+
+        // Menu Playlist selectionne
+        document.addEventListener('menuPlaylist', () => {
+            this.AV_player.classList.remove("on");
+        });
         
     }
 }

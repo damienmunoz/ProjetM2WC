@@ -35,6 +35,25 @@ class Playlist extends HTMLElement {
         document.addEventListener('playPreviousMusic', () => {
             this.playPreviousMusic();
         });
+
+        // Ouvrir/Fermer menu
+        document.addEventListener('closeButtonClicked', () => {
+            if (this.musicList.classList.contains("active")) {
+                this.musicList.classList.remove("active");
+            } else {
+                this.musicList.classList.add("active");
+            }
+        });
+
+        // Menu Playlist selectionne
+        document.addEventListener('menuPlaylist', () => {
+            this.musicList.classList.add("on");
+        });
+
+        // Menu Player selectionne
+        document.addEventListener('menuPlayer', () => {
+            this.musicList.classList.remove("on");
+        });
     }
 
     init() {

@@ -50,7 +50,8 @@ class AudioPlayer extends HTMLElement {
         this.prev_btn = this.shadowRoot.querySelector(".prev"),
         this.play_btn = this.shadowRoot.querySelector(".play"),
         this.next_btn = this.shadowRoot.querySelector(".next"),
-        this.shuffle_btn = this.shadowRoot.querySelector(".shuffle");
+        this.shuffle_btn = this.shadowRoot.querySelector(".shuffle"),
+        this.pagination = this.shadowRoot.querySelector(".pagination");
     }
 
     connectedCallback() {
@@ -125,6 +126,15 @@ class AudioPlayer extends HTMLElement {
             this.audioElement.play();
             this.progress.max = this.audioElement.duration;
             this.checkPaused();
+        });
+
+        // Ouvrir/Fermer menu
+        document.addEventListener('closeButtonClicked', () => {
+            if (this.pagination.classList.contains("active")) {
+                this.pagination.classList.remove("active");
+            } else {
+                this.pagination.classList.add("active");
+            }
         });
 
 

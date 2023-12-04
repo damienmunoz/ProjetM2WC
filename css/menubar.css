@@ -37,6 +37,22 @@ nav.active ul li span {
     transition-delay: 0s;
 }
 
+nav.active .logo .full-logo {
+    display: none;
+}
+
+nav.active .logo .short-logo {
+    display: block;
+}
+
+nav .logo .full-logo {
+    display: block;
+}
+
+nav .logo .short-logo {
+    display: none;
+}
+
 nav ul li span {
     transition-delay: 0.3s;
     font-family: "Zen Dots", cursive;
