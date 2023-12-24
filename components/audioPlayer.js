@@ -1,10 +1,15 @@
+import '../assets/lib/webaudio-controls.js';
+import '../components/equalizer.js';
+import '../components/MenuBar.js';
+import '../components/playlist.js';
+import '../components/Visualizer.js';
+const AudioContext = window.AudioContext || window.webkitAudioContext;
+
 const template = document.createElement("template");
 template.innerHTML = `
     <link rel="stylesheet" type="text/css" href="css/audioplayer.css">
 
-    <menu-bar-component></menu-bar-component>
-    <visualizer-component></visualizer-component>
-    <playlist-component></playlist-component>
+
     <div class="pagination">
         <div class="music-title">
             <div class="image">
@@ -31,18 +36,23 @@ template.innerHTML = `
         </div>
     </div>
     <audio src=""></audio>
-    `;
+    <equalizer-component id="equalizer"></equalizer-component>
+    <menu-bar-component id="menuBar"></menu-bar-component>
+    <playlist-component id="playlist"></playlist-component>
+    <visualizer-component id="visualizer"></visualizer-component>
 
+    `;
 class AudioPlayer extends HTMLElement {
 
     constructor () {
         super()
         this.attachShadow({ mode: 'open' });
         this.shadowRoot.appendChild(template.content.cloneNode(true));
-        this.audioElement = this.shadowRoot.querySelector('audio');
-        this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
         this.isPlaying = false;
-
+        this.menuBar = this.shadowRoot.getElementById("menuBar");
+        this.visualizer = this.shadowRoot.getElementById("visualizer");
+        this.playlist = this.shadowRoot.getElementById("playlist");
+        this.equalizer = this.shadowRoot.getElementById("equalizer");
         // SELECTING ELEMENTS.
         this.ripple_buttons = this.shadowRoot.querySelectorAll(".ripple"),
         this.value_of_range = this.shadowRoot.querySelector(".value-of-range"),
@@ -50,13 +60,16 @@ class AudioPlayer extends HTMLElement {
         this.prev_btn = this.shadowRoot.querySelector(".prev"),
         this.play_btn = this.shadowRoot.querySelector(".play"),
         this.next_btn = this.shadowRoot.querySelector(".next"),
-        this.shuffle_btn = this.shadowRoot.querySelector(".shuffle"),
         this.pagination = this.shadowRoot.querySelector(".pagination");
     }
 
     connectedCallback() {
 
+        this.initAudio();
+
         document.addEventListener('musicSelected', (event) => {
+            console.log('musicSelected event received:', event.detail);
+
             const titleH2 = this.shadowRoot.querySelector('.title h2');
             const titleSpan = titleH2.querySelector('span');
 
@@ -69,13 +82,14 @@ class AudioPlayer extends HTMLElement {
                 // Assurez-vous de retirer la classe si la longueur du titre n'est pas supérieure à 13
                 titleH2.classList.remove("scroll");
             }
-            
+            this.setImageMusic(event);
+
             this.audioElement.src = `/assets/music/${event.detail.musicTitle}`;
             this.audioContext.resume().then(() => {
                 this.audioElement.play();
                 // Vous pouvez ajouter d'autres fonctionnalités ici, comme l'égalisation, etc.
             });
-            // this.audioElement.play();
+
             this.progress.max = this.audioElement.duration;
             
             this.checkPaused();
@@ -109,6 +123,7 @@ class AudioPlayer extends HTMLElement {
 
         document.addEventListener('playNext', (event) => {
             this.shadowRoot.querySelector('.title h2 span').textContent = event.detail.musicTitle;
+            this.setImageMusic(event);
             this.audioElement.src = `/assets/music/${event.detail.musicTitle}`;
             this.audioElement.play();
             this.progress.max = this.audioElement.duration;
@@ -122,6 +137,7 @@ class AudioPlayer extends HTMLElement {
 
         document.addEventListener('playPrevious', (event) => {
             this.shadowRoot.querySelector('.title h2 span').textContent = event.detail.musicTitle;
+            this.setImageMusic(event);
             this.audioElement.src = `/assets/music/${event.detail.musicTitle}`;
             this.audioElement.play();
             this.progress.max = this.audioElement.duration;
@@ -137,8 +153,60 @@ class AudioPlayer extends HTMLElement {
             }
         });
 
+        this.audioElement.onplay = (e) => { this.audioContext.resume(); };
 
     }
+
+    initAudio() {
+        if (!this.audioContext) {
+            this.audioContext = new AudioContext();
+            this.audioElement = this.shadowRoot.querySelector('audio');
+            this.sourceNode = this.audioContext.createMediaElementSource(this.audioElement);
+            this.sourceNode.connect(this.audioContext.destination);
+            this.audioNodes = [this.sourceNode];
+        }
+        this.initDependencies();
+
+    }
+
+    async connectAudioNode(audioNode, name) {
+        return new Promise((resolve) => {
+            const checkContext = () => {
+                if (this.audioContext) {
+                    audioNode.name = name;
+                    const length = this.audioNodes.length;
+                    const previousNode = this.audioNodes[length - 1];
+                    previousNode.connect(audioNode);
+                    audioNode.connect(this.audioContext.destination);
+                    resolve();
+                } else {
+                    setTimeout(checkContext, 100);
+                }
+            };
+        checkContext();
+        });
+    }
+
+    addAudioNode(audioNode, name) {
+        audioNode.name = name;
+        const length = this.audioNodes.length;
+        const previousNode = this.audioNodes[length - 1];
+        previousNode.disconnect();
+        previousNode.connect(audioNode);
+        audioNode.connect(this.audioContext.destination);
+        this.audioNodes.push(audioNode);
+        console.log(`Linked ${previousNode.name || 'input'} to ${audioNode.name}`);
+    }
+
+    initDependencies() {
+        setTimeout(() => {
+            this.equalizer.audioContext = this.audioContext;
+            this.equalizer.addAudioNode = (audioNode, name) => this.connectAudioNode(audioNode, name);
+            this.visualizer.audioContext = this.audioContext;
+            this.visualizer.addAudioNode = (audioNode) => this.connectAudioNode(audioNode, name);
+        }, 100);
+    }
+
 
     // Affichage du bouton Play/Pause.
     checkPaused() {
@@ -167,6 +235,11 @@ class AudioPlayer extends HTMLElement {
             "style",
             `left: ${(this.audioElement.currentTime / this.audioElement.duration) * 100}%`
         );
+    }
+
+    setImageMusic(event) {
+        const img = this.shadowRoot.querySelector('.image').querySelector('img');
+        img.src = `/assets/image/${event.detail.musicTitle.split('.mp3')[0]}.jpg`;
     }
 
 }

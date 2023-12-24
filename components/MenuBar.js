@@ -12,7 +12,7 @@ template.innerHTML = `
                 <i class="icon fas fa-music"></i> <span>Visualizer</span>
             </li>
             <li class="ripple">
-                <i class="icon fas fa-stream"></i> <span>Equalizer</span>
+                <i class="icon fas fa-sliders"></i> <span>Equalizer</span>
             </li>
             <li class="ripple active">
                 <i class="icon fas fa-stream"></i> <span>Playlist</span>
@@ -67,11 +67,15 @@ class MenuBar extends HTMLElement {
             document.dispatchEvent(menuPlayer);
         });
 
+        this.nav_links[1].addEventListener("click", () => {
+            const menuEqua = new CustomEvent('menuEqua');
+            document.dispatchEvent(menuEqua);
+        });
+
         this.nav_links[2].addEventListener("click", () => {
             const menuPlaylist = new CustomEvent('menuPlaylist');
             document.dispatchEvent(menuPlaylist);
         });
-        
     }
 }
 

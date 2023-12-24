@@ -54,43 +54,89 @@ class Playlist extends HTMLElement {
         document.addEventListener('menuPlayer', () => {
             this.musicList.classList.remove("on");
         });
+
+        // Menu Player selectionne
+        document.addEventListener('menuEqua', () => {
+            this.musicList.classList.remove("on");
+        });
     }
+
 
     init() {
         // SELECTING ELEMENTS.
         let music_list = this.shadowRoot.querySelector(".music-list"),
             music_ul_tag = music_list.querySelector("ul"),
             backup_music_array = [];
+        
 
         const path = "/assets/music/";
         const extension = ".mp3";
-        const musicFiles = [`${path}Cassage de nuques, pt. 1${extension}`, 
-            `${path}Cassage de nuques, pt. 2${extension}`,
-            `${path}JUL  Freestyle Booska Dans La Nuque Part.3${extension}`,
-            `${path}music${extension}`
+        const musicFiles = [`${path}A Long Way - Serge Pavkin${extension}`, 
+            `${path}Awaken - Onoychenko${extension}`,
+            `${path}Baby Mandala - Prazkhanal${extension}`,
+            `${path}Drive Breakbeat - Rockot${extension}`,
+            `${path}For Future Bass - The Mountain${extension}`,
+            `${path}Good Night - FASSounds${extension}`,
+            `${path}My Universe - Nesterouk${extension}`,
+            `${path}Science Documentary - Lexin${extension}`,
+            `${path}Smoke - SoulProd${extension}`,
+            `${path}The Best Jazz Club In New Orleans - Paolo Argento${extension}`,
+            `${path}Titanium - Alisha${extension}`,
+            `${path}Tokyo Cafe - TVARI${extension}`
         ];
 
+        function getDuration(src,cb) {
+            var audio = new Audio();
+            audio.addEventListener("loadedmetadata",()=>{
+                cb(audio.duration);
+            });
+            audio.src = src;
+        }
+    
+        function fancyTimeFormat(duration) {
+            const hrs = ~~(duration / 3600);
+            const mins = ~~((duration % 3600) / 60);
+            const secs = ~~duration % 60;
+          
+            let ret = "";
+          
+            if (hrs > 0) {
+              ret += "" + hrs + ":" + (mins < 10 ? "0" : "");
+            }
+          
+            ret += "" + mins + ":" + (secs < 10 ? "0" : "");
+            ret += "" + secs;
+          
+            return ret;   
+        }
+           
         for (let i = 0; i < musicFiles.length; i++) {
+            let duree = '';
+
+            getDuration(musicFiles[i], function(length) {
+                duree = fancyTimeFormat(length);
+            });
+
             let reader = new FileReader();
+
+
             reader.addEventListener("load", () => {
+                let size = (reader.result.length / Math.pow(1024, 2) / 1.33411764706).toFixed(2);
                 let music = [
                     musicFiles[i].split('/').pop(), // Récupère le nom du fichier
-                    (reader.result.size / Math.pow(1024, 2)).toFixed(2),
-                    new Date(), // Utilise la date actuelle pour lastModified (peut être ajusté selon les besoins)
-                    reader.result
+                    duree,
+                    size, 
                 ];
-        
-                let date = new Date();
                 this.music_array.push(music);
                 backup_music_array.push(music);
         
                 let li = document.createElement("li");
                 li.classList.add("ripple", "music-item");
                 li.innerHTML += `
-                        <a href="#" title="${musicFiles[i].split('/').pop()}">
-                        <span>${musicFiles[i].split('/').pop()}</span>
-                        <span>${date.toLocaleDateString("en-US")}</span>
-                        <span>${(reader.result.size / Math.pow(1024, 2)).toFixed(2)}M</span>
+                        <a href="#" title="${music[0]}">
+                        <span>${music[0]}</span>
+                        <span>${music[1]}</span>
+                        <span>${music[2]} Mo</span>
                         </a>
                 `;
                 music_ul_tag.appendChild(li);
@@ -129,7 +175,7 @@ class Playlist extends HTMLElement {
 
                 });
             });
-        
+
             // Utilisez l'API fetch pour charger le fichier
             fetch(musicFiles[i])
                 .then(response => response.blob())
@@ -210,7 +256,6 @@ class Playlist extends HTMLElement {
             }
         }
     }
-    
 
 }
 
