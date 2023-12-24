@@ -12,7 +12,7 @@ template.innerHTML = `
                 <i class="icon fas fa-music"></i> <span>Visualizer</span>
             </li>
             <li class="ripple">
-                <i class="icon fas fa-sliders"></i> <span>Equalizer</span>
+                <i class="icon fas fa-music"></i> <span>Equalizer</span>
             </li>
             <li class="ripple active">
                 <i class="icon fas fa-stream"></i> <span>Playlist</span>
