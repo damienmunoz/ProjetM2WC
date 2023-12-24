@@ -124,7 +124,7 @@ class AudioPlayer extends HTMLElement {
         document.addEventListener('playNext', (event) => {
             this.shadowRoot.querySelector('.title h2 span').textContent = event.detail.musicTitle;
             this.setImageMusic(event);
-            this.audioElement.src = `/assets/music/${event.detail.musicTitle}`;
+            this.audioElement.src = `/ProjetM2WC/assets/music/${event.detail.musicTitle}`;
             this.audioElement.play();
             this.progress.max = this.audioElement.duration;
             this.checkPaused();
@@ -239,7 +239,7 @@ class AudioPlayer extends HTMLElement {
 
     setImageMusic(event) {
         const img = this.shadowRoot.querySelector('.image').querySelector('img');
-        img.src = `../assets/image/${event.detail.musicTitle.split('.mp3')[0]}.jpg`;
+        img.src = `/ProjetM2WC/assets/image/${event.detail.musicTitle.split('.mp3')[0]}.jpg`;
     }
 
 }
