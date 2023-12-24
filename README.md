@@ -24,7 +24,7 @@ Il offre des fonctionnalités telles que l'affichage de la musique en cours de l
 
 ## Démarrage
 
-### Pour lancer le projet, accédez à [github.com/ProjetM2WCOnline](https://github.com/ProjetM2WCOnline).
+### Pour lancer le projet, accédez à [damienmunoz.github.io/ProjetM2WC/](https://damienmunoz.github.io/ProjetM2WC/).
 
 ## Pour commencer
 
