@@ -239,7 +239,7 @@ class AudioPlayer extends HTMLElement {
 
     setImageMusic(event) {
         const img = this.shadowRoot.querySelector('.image').querySelector('img');
-        img.src = `/assets/image/${event.detail.musicTitle.split('.mp3')[0]}.jpg`;
+        img.src = `../assets/image/${event.detail.musicTitle.split('.mp3')[0]}.jpg`;
     }
 
 }
