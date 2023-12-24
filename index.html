@@ -1,18 +1,15 @@
 <html>
     <head>
-        <title>Projet M2 WC</title>
         <link rel="stylesheet" type="text/css" href="css/style.css">
-        <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
-        <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-        <script src ="./components/audioPlayer.js" type="module"></script>
-        <script src="js/script.js"></script>
+        <meta charset="UTF-8">
+        <script src="components/audioPlayer.js" type="module"></script>
+        <!--<script src="components/MenuBar.js" type="module"></script>
+        <script src="components/playlist.js" type="module"></script>
+        <script src="components/Visualizer.js" type="module"></script>
+        ><script src="components/equalizer.js" type="module"></script>
+        <script src="https://g200kg.github.io/webaudio-controls/webaudio-controls.js"></script>-->
     </head> 
     <body>
-        <h3 style="text-align:center">Custom UI for HTML5 audio element</h3>
-        <audio-player
-            tracks='["Chameleon", "Dumaya"]'
-            paths='["./assets/Chameleon.mp3", "./assets/Dumaya.mp3"]'>
-        </audio-player>
+        <audio-player-component></audio-player-component>
     </body>
 </html>

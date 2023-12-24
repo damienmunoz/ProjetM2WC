@@ -1,0 +1,243 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css");
+
+.pagination {
+    position: fixed;
+    bottom: 0;
+    left: 200px;
+    height: 100px;
+    background: rgba(255, 255, 255, 0.151);
+    backdrop-filter: blur(10px);
+    transition: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    width: calc(100% - 200px);
+    color: white;
+    border-top: 2px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    z-index: 3;
+}
+
+.pagination.active {
+    left: 65px;
+    width: calc(100% - 65px);
+    transition: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pagination .music-title {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.151);
+    backdrop-filter: blur(5px);
+    padding-right: 30px;
+    border-top-right-radius: 100px;
+    border-bottom-right-radius: 100px;
+}
+
+.pagination .music-title .image {
+    position: relative;
+    width: 90px;
+    height: 90px;
+}
+
+.pagination .music-title .image img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.pagination .title h2 {
+    position: relative;
+    margin: 0;
+    overflow: hidden;
+    height: 30px;
+    width: 150px;
+    white-space: nowrap;
+}
+
+.pagination .title h2 span {
+    position: relative;
+}
+
+.pagination .title h2.scroll span {
+    animation: title 10s linear 0s infinite forwards;
+}
+
+@keyframes title {
+    0% {
+        left: 100%;
+    }
+    100% {
+        left: -300%;
+    }
+}
+
+.pagination .controls {
+    position: relative;
+    height: 100%;
+    width: calc(100% - 300px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.pagination .controls .progress-container {
+    position: relative;
+    width: 90%;
+}
+
+.pagination .controls .progress {
+    position: relative;
+    appearance: none;
+    width: 100%;
+    height: 8px;
+    border-radius: 50px;
+    display: block;
+    background: #ffffff75;
+    margin-bottom: 20px;
+    outline: none;
+    overflow: hidden;
+    transition: 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.value-of-range {
+    position: absolute;
+    top: -130%;
+    border: 2px solid rgb(255, 255, 255);
+    transform: rotate(135deg) scale(0);
+    border-radius: 100px 0 100px 100px;
+    background: #fffefe00;
+    color: rgb(255, 255, 255);
+    width: 35px;
+    height: 35px;
+    transition: transform 0.3s ease;
+    font-size: 13.5px;
+}
+
+.progress:hover ~ .value-of-range {
+    transform: rotate(135deg) scale(1);
+}
+
+.value-of-range .value {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-135deg);
+    text-align: center;
+}
+
+.pagination .controls .progress:hover {
+    height: 15px;
+}
+
+.pagination .controls .progress::-webkit-slider-thumb {
+    appearance: none;
+    height: 15px;
+    width: 15px;
+    background: rgba(0, 183, 255, 0.534);
+    border-radius: 50%;
+    cursor: ew-resize;
+    box-shadow: -1007.5px 0 0 1000px rgba(0, 183, 255, 0.534);
+}
+
+.pagination .controls .control-button {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 50px;
+    background: rgba(255, 255, 255, 0.164);
+}
+
+@media (max-width: 687px) {
+
+    .pagination {
+        bottom: 120px;
+        left: 0;
+        width: 100vw;
+        z-index: 3;
+    }
+
+    .pagination .controls .control-button {
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+    }
+
+    .pagination .music-title {
+        width: 140px;
+    }
+    .pagination .title h2 {
+        position: relative;
+        margin: 0;
+        overflow: hidden;
+        height: 30px;
+        width: 80px;
+    }
+
+    .pagination .controls {
+        width: calc(100% - 100px);
+    }
+}
+
+@media (max-width: 365px) {
+
+    .pagination {
+        bottom: 78px;
+        justify-content: space-around;
+        flex-direction: column;
+    }
+
+    .pagination .music-title {
+        width: 100%;
+        height: 50px;
+        background: rgba(255, 255, 255, 0.05);
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .pagination .music-title .image {
+        float: left;
+        width: 50px;
+        height: 50px;
+    }
+
+    .pagination .title h2 {
+        position: relative;
+        margin: 0;
+        font-size: 15px;
+        overflow: hidden;
+        height: 30px;
+        width: calc(100vw - 100px);
+    }
+
+    .pagination .title h2.scroll span {
+        animation: none;
+    }
+
+    .pagination .controls .progress-container {
+        position: relative;
+        width: 90%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .pagination .controls .progress {
+        margin-bottom: 10px;
+    }
+
+    .pagination .controls .main-controls {
+        position: relative;
+        width: 100vw;
+        text-align: center;
+    }
+}

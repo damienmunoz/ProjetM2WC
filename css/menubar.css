@@ -1,0 +1,221 @@
+@import url("https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css");
+
+.small-text {
+    font-size: 12px;
+    font-weight: normal;
+    display: block;
+    color: #ffffff;
+    font-family: "Zen Dots", cursive;
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 100vh;
+    backdrop-filter: blur(5px);
+    display: block;
+    border-right: 2px solid rgba(255, 255, 255, 0.1);
+    transition: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 3;
+}
+
+nav.active {
+    width: 65px;
+}
+
+nav.active ul li {
+    height: 40px;
+    font-size: 25px;
+}
+
+nav.active ul li span {
+    opacity: 0;
+    visibility: hidden;
+    transition-delay: 0s;
+}
+
+nav.active .logo .full-logo {
+    display: none;
+}
+
+nav.active .logo .short-logo {
+    display: block;
+}
+
+nav .logo .full-logo {
+    display: block;
+}
+
+nav .logo .short-logo {
+    display: none;
+}
+
+nav ul li span {
+    transition-delay: 0.3s;
+    font-family: "Zen Dots", cursive;
+}
+
+nav .logo {
+    position: relative;
+    width: 100%;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: 20px 0;
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+    font-family: "Zen Dots", cursive;
+}
+
+nav ul {
+    position: relative;
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    position: relative;
+    padding: 15px 20px;
+    margin-top: 15px;
+    color: white;
+    border-top: 2px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.089);
+    backdrop-filter: blur(20px);
+    cursor: pointer;
+    line-height: 40px;
+    border-radius: 15px;
+}
+
+nav ul li.active::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 100%;
+    background: rgba(0, 183, 255, 0.534);
+}
+
+nav ul li label {
+    position: relative;
+    display: block;
+    color: white;
+    cursor: pointer;
+}
+
+nav .closeButton {
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    font-size: 35px;
+    color: white;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.5s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+}
+
+nav .closeButton.active {
+    transform: translate(-50%, -50%) rotate(180deg);
+}
+
+nav .closeButton::after {
+    position: absolute;
+    top: -7px;
+    left: -7px;
+    right: -7px;
+    bottom: -7px;
+    z-index: -1;
+    border-radius: 50%;
+    background: linear-gradient(-45deg, indigo, aqua);
+}
+
+nav li .icon {
+    width: 30px;
+    height: 30px;
+}
+
+.ripple {
+    overflow: hidden;
+}
+
+@media (max-width: 687px) {
+    nav {
+        top: inherit;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 150px;
+        border-top: 2px solid rgba(255, 255, 255, 0.1);
+        border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    nav .logo {
+        position: absolute;
+        width: 200px;
+        height: 100px;
+        display: inline-block;
+        padding: 10px;
+        font-size: 1.5rem;
+    }
+
+    nav .closeButton {
+        display: none;
+    }
+
+    nav ul {
+        position: absolute;
+        bottom: 0;
+        margin: auto;
+        width: 100%;
+        display: flex;
+    }
+
+    nav ul > * {
+        flex-basis: 100%;
+    }
+
+    nav ul li {
+        position: relative;
+        padding: 15px 20px;
+        display: inline-block;
+        margin-top: 15px;
+        color: white;
+        cursor: pointer;
+        line-height: 40px;
+        text-align: center;
+    }
+
+    nav ul li.active::before {
+        content: "";
+        position: absolute;
+        top: inherit;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 6px;
+        background: rgba(0, 183, 255, 0.534);
+    }
+
+    nav ul li span {
+        display: block;
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 365px) {
+    nav ul li span {
+        display: none;
+    }
+}

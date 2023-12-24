@@ -1,0 +1,157 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap");
+
+.music-list {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: calc(100% - 200px);
+    height: calc(100% - 100px);
+    background: rgba(0, 0, 0, 0.582);
+    /* backdrop-filter: blur(0px); */
+    color: rgba(255, 255, 255, 0.808);
+    overflow-y: scroll;
+    visibility: hidden;
+    transform: scale(0);
+    opacity: 0;
+    transition: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.music-list.on {
+    visibility: visible;
+    transform: scale(1);
+    opacity: 1;
+}
+
+.music-list::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.164);
+    border-radius: 100px;
+}
+
+.music-list::-webkit-scrollbar {
+    background: transparent;
+    width: 10px;
+}
+
+.music-list h1 {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    font-family: "Zen Dots", cursive;
+}
+
+.music-list ul {
+    position: relative;
+    padding: 0;
+    width: 100%;
+    list-style: none;
+}
+
+.music-list ul li {
+    color: #ccc;
+}
+
+.music-list ul li.playing {
+    color: rgba(0, 183, 255, 0.534);
+}
+
+.music-list ul li a {
+    position: relative;
+    width: 90%;
+    margin: 10px auto;
+    height: 50px;
+    border-radius: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none;
+    font-size: 20px;
+    white-space: nowrap;
+    color: inherit;
+}
+
+.music-list.on ul li:first-child a {
+    background: rgba(197, 197, 197, 0.281);
+    backdrop-filter: blur(10px);
+    margin-bottom: 25px;
+}
+
+.music-list ul li a span {
+    margin: 0 20px;
+    overflow: hidden;
+    word-break: keep-all;
+    width: 25%;
+    font-size: 15px;
+}
+
+.music-list ul li a span:first-child {
+    font-size: 18px;
+    width: 50%;
+}
+
+.music-list .play-floating-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    font-size: 30px;
+    border-radius: 50%;
+    color: white;
+    text-align: center;
+    transform: translate(-50%, -50%) rotate(45deg) scale(0);
+    box-shadow: 8px 8px 15px black;
+    user-select: none;
+    pointer-events: none;
+    transition: 0.1s linear;
+}
+
+.music-list .play-floating-button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2.5px dashed white;
+    animation: rotate360 5s linear 0s infinite forwards;
+}
+
+@keyframes rotate360 {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.music-list .play-floating-button .fas {
+    transform: rotate(-45deg);
+}
+
+.music-list .play-floating-button.moving {
+    transform: translate(-50%, -50%) rotate(45deg) scale(1);
+}
+
+.music-list.active {
+    width: calc(100% - 65px);
+    transition: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ripple {
+    overflow: hidden;
+}
+
+@media (max-width: 365px) {
+
+    .music-list {
+        width: 100%;
+        height: calc(100% - 183px);
+    }
+}
